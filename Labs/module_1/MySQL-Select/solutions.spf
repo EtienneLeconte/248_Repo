@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ContentFilters</key>
+	<dict/>
+	<key>auto_connect</key>
+	<true/>
+	<key>data</key>
+	<dict>
+		<key>connection</key>
+		<dict>
+			<key>database</key>
+			<string>publications</string>
+			<key>host</key>
+			<string>127.0.0.1</string>
+			<key>kcid</key>
+			<string>5430701237833564815</string>
+			<key>name</key>
+			<string>localhost</string>
+			<key>rdbms_type</key>
+			<string>mysql</string>
+			<key>sslCACertFileLocation</key>
+			<string></string>
+			<key>sslCACertFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslCertificateFileLocation</key>
+			<string></string>
+			<key>sslCertificateFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslKeyFileLocation</key>
+			<string></string>
+			<key>sslKeyFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>type</key>
+			<string>SPTCPIPConnection</string>
+			<key>useSSL</key>
+			<integer>0</integer>
+			<key>user</key>
+			<string>root</string>
+		</dict>
+		<key>session</key>
+		<dict>
+			<key>connectionEncoding</key>
+			<string>utf8</string>
+			<key>contentFilterV2</key>
+			<dict>
+				<key>children</key>
+				<array/>
+				<key>filterClass</key>
+				<string>groupNode</string>
+				<key>isConjunction</key>
+				<true/>
+			</dict>
+			<key>contentPageNumber</key>
+			<integer>1</integer>
+			<key>contentSelection</key>
+			<data>
+			YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0
+			b3BYJG9iamVjdHMSAAGGoF8QD05TS2V5ZWRBcmNoaXZlctEICVRk
+			YXRhgAGvEA8LDBkaGxwdISguMjY5PEBVJG51bGzTDQ4PEBQYV05T
+			LmtleXNaTlMub2JqZWN0c1YkY2xhc3OjERITgAKAA4AEoxUWF4AF
+			gAaACIAOVHR5cGVUcm93c1RrZXlzXxAmU2VsZWN0aW9uRGV0YWls
+			VHlwZVByaW1hcnlLZXllZERldGFpbHPTDQ4PHh8goKCAB9IiIyQl
+			WiRjbGFzc25hbWVYJGNsYXNzZXNfEBNOU011dGFibGVEaWN0aW9u
+			YXJ5oyQmJ1xOU0RpY3Rpb25hcnlYTlNPYmplY3TSDg8pLaMqKyyA
+			CYALgAyADdIPLzAxWU5TLnN0cmluZ4AKV3N0b3JfaWTSIiMzNF8Q
+			D05TTXV0YWJsZVN0cmluZ6MzNSdYTlNTdHJpbmfSDy8wOIAKV29y
+			ZF9udW3SDy8wO4AKWHRpdGxlX2lk0iIjPT5eTlNNdXRhYmxlQXJy
+			YXmjPT8nV05TQXJyYXnSIiMmQaImJwAIABEAGgAkACkAMgA3AEkA
+			TABRAFMAZQBrAHIAegCFAIwAkACSAJQAlgCaAJwAngCgAKIApwCs
+			ALEA2gDhAOIA4wDlAOoA9QD+ARQBGAElAS4BMwE3ATkBOwE9AT8B
+			RAFOAVABWAFdAW8BcwF8AYEBgwGLAZABkgGbAaABrwGzAbsBwAAA
+			AAAAAAIBAAAAAAAAAEIAAAAAAAAAAAAAAAAAAAHD
+			</data>
+			<key>contentSortColIsAsc</key>
+			<true/>
+			<key>contentViewport</key>
+			<string>{{0, 0}, {1227, 767}}</string>
+			<key>isToolbarVisible</key>
+			<true/>
+			<key>queries</key>
+			<string>use publications;
+
+# CHALLENGE 1
+
+select A.au_id as 'AUTHOR ID', A.au_fname,A.au_lname,T.title,P.pub_name
+from authors A
+inner join titleauthor TA
+on A.au_id=TA.au_id
+inner join titles T
+on TA.title_id=T.title_id
+inner join publishers P
+on T.pub_id=P.pub_id
+order by A.au_id;
+
+# CHALLENGE 2 
+
+select A.au_id as 'AUTHOR ID', A.au_fname,A.au_lname,count(T.title) as 'NB of titles',P.pub_name
+from authors A
+inner join titleauthor TA
+on A.au_id=TA.au_id
+inner join titles T
+on TA.title_id=T.title_id
+inner join publishers P
+on T.pub_id=P.pub_id
+group by A.au_id, A.au_fname,A.au_lname,P.pub_name
+order by A.au_id;
+
+# CHALLENGE 3
+
+select A.au_id as 'AUTHOR ID', A.au_fname,A.au_lname,sum(S.qty) as 'TOTAL'
+from authors A
+inner join titleauthor TA
+on A.au_id=TA.au_id
+inner join sales S
+on TA.title_id=S.title_id
+group by A.au_id, A.au_fname,A.au_lname
+order by TOTAL desc
+limit 3;
+
+# CHALLENGE 4 
+
+select A.au_id as 'AUTHOR ID', A.au_fname,A.au_lname,coalesce(sum(S.qty),0) as 'TOTAL'
+from authors A
+left join titleauthor TA
+on A.au_id=TA.au_id
+left join sales S
+on TA.title_id=S.title_id
+group by A.au_id, A.au_fname,A.au_lname
+order by TOTAL desc;
+</string>
+			<key>table</key>
+			<string>sales</string>
+			<key>view</key>
+			<string>SP_VIEW_CUSTOMQUERY</string>
+			<key>windowVerticalDividerPosition</key>
+			<real>214</real>
+		</dict>
+	</dict>
+	<key>encrypted</key>
+	<false/>
+	<key>format</key>
+	<string>connection</string>
+	<key>queryFavorites</key>
+	<array/>
+	<key>queryHistory</key>
+	<array>
+		<string># CHALLENGE 4 
+
+select A.au_id as 'AUTHOR ID', A.au_fname,A.au_lname,coalesce(sum(S.qty),0) as 'TOTAL'
+from authors A
+left join titleauthor TA
+on A.au_id=TA.au_id
+left join sales S
+on TA.title_id=S.title_id
+group by A.au_id, A.au_fname,A.au_lname
+order by TOTAL desc</string>
+		<string># CHALLENGE 4 
+
+select A.au_id as 'AUTHOR ID', A.au_fname,A.au_lname,isnull(sum(S.qty),0) as 'TOTAL'
+from authors A
+left join titleauthor TA
+on A.au_id=TA.au_id
+left join sales S
+on TA.title_id=S.title_id
+group by A.au_id, A.au_fname,A.au_lname
+order by TOTAL desc</string>
+		<string># CHALLENGE 4 
+
+select A.au_id as 'AUTHOR ID', A.au_fname,A.au_lname,sum(S.qty) as 'TOTAL'
+from authors A
+left join titleauthor TA
+on A.au_id=TA.au_id
+left join sales S
+on TA.title_id=S.title_id
+group by A.au_id, A.au_fname,A.au_lname
+order by TOTAL desc
+isnull(TOTAL,0)</string>
+		<string># CHALLENGE 4 
+
+select A.au_id as 'AUTHOR ID', A.au_fname,A.au_lname,sum(S.qty) as 'TOTAL'
+from authors A
+left join titleauthor TA
+on A.au_id=TA.au_id
+left join sales S
+on TA.title_id=S.title_id
+group by A.au_id, A.au_fname,A.au_lname
+order by TOTAL desc</string>
+		<string># CHALLENGE 4 
+
+select A.au_id as 'AUTHOR ID', A.au_fname,A.au_lname,sum(S.qty) as 'TOTAL'
+from authors A
+left join titleauthor TA
+on A.au_id=TA.au_id
+inner join sales S
+on TA.title_id=S.title_id
+group by A.au_id, A.au_fname,A.au_lname
+order by TOTAL desc</string>
+		<string># CHALLENGE 4 
+
+select A.au_id as 'AUTHOR ID', A.au_fname,A.au_lname,sum(S.qty) as 'TOTAL'
+from authors A
+inner join titleauthor TA
+on A.au_id=TA.au_id
+inner join sales S
+on TA.title_id=S.title_id
+group by A.au_id, A.au_fname,A.au_lname
+order by TOTAL desc</string>
+		<string># CHALLENGE 3
+
+select A.au_id as 'AUTHOR ID', A.au_fname,A.au_lname,sum(S.qty) as 'TOTAL'
+from authors A
+inner join titleauthor TA
+on A.au_id=TA.au_id
+inner join sales S
+on TA.title_id=S.title_id
+group by A.au_id, A.au_fname,A.au_lname
+order by TOTAL desc
+limit 3</string>
+		<string>limit 3</string>
+		<string># CHALLENGE 3
+
+select A.au_id as 'AUTHOR ID', A.au_fname,A.au_lname,sum(S.qty) as 'TOTAL'
+from authors A
+inner join titleauthor TA
+on A.au_id=TA.au_id
+inner join sales S
+on TA.title_id=S.title_id
+group by A.au_id, A.au_fname,A.au_lname
+order by TOTAL desc</string>
+		<string># CHALLENGE 3
+
+select A.au_id as 'AUTHOR ID', A.au_fname,A.au_lname,sum(S.qty)
+from authors A
+inner join titleauthor TA
+on A.au_id=TA.au_id
+inner join sales S
+on TA.title_id=S.title_id
+group by A.au_id, A.au_fname,A.au_lname</string>
+		<string># CHALLENGE 3
+
+select A.au_id as 'AUTHOR ID', A.au_fname,A.au_lname,sum(S.qty)
+from authors A
+inner join titleauthor TA
+on A.au_id=TA.au_id
+inner join sales S
+on TA.title_id=S.title_id</string>
+		<string># CHALLENGE 3
+
+select A.au_id as 'AUTHOR ID', A.au_fname,A.au_lname
+from authors A
+inner join titleauthor TA
+on A.au_id=TA.au_id
+inner join sales S
+on TA.title_id=S.title_id</string>
+		<string># CHALLENGE 3
+
+select A.au_id as 'AUTHOR ID', A.au_fname,A.au_lname
+from authors A
+inner join titleauthor TA
+on A.au_id=TA.au_id</string>
+		<string>#CHALLENGE 2 
+
+select A.au_id as 'AUTHOR ID', A.au_fname,A.au_lname,count(T.title) as 'NB of titles',P.pub_name
+from authors A
+inner join titleauthor TA
+on A.au_id=TA.au_id
+inner join titles T
+on TA.title_id=T.title_id
+inner join publishers P
+on T.pub_id=P.pub_id
+group by A.au_id, A.au_fname,A.au_lname,P.pub_name
+order by A.au_id</string>
+		<string>#CHALLENGE 2 
+
+select A.au_id as 'AUTHOR ID', A.au_fname,A.au_lname,count(T.title) as 'NB of titles',P.pub_name
+from authors A
+inner join titleauthor TA
+on A.au_id=TA.au_id
+inner join titles T
+on TA.title_id=T.title_id
+inner join publishers P
+on T.pub_id=P.pub_id
+group by A.au_id
+order by A.au_id</string>
+		<string>#CHALLENGE 2 
+
+select A.au_id as 'AUTHOR ID', A.au_fname,A.au_lname,count(T.title) as 'NB of titles',P.pub_name
+from authors A
+inner join titleauthor TA
+on A.au_id=TA.au_id
+inner join titles T
+on TA.title_id=T.title_id
+inner join publishers P
+on T.pub_id=P.pub_id
+order by A.au_id</string>
+		<string>#CHALLENGE 2 
+
+select A.au_id as 'AUTHOR ID', A.au_fname,A.au_lname,T.title as 'NB of titles',P.pub_name
+from authors A
+inner join titleauthor TA
+on A.au_id=TA.au_id
+inner join titles T
+on TA.title_id=T.title_id
+inner join publishers P
+on T.pub_id=P.pub_id
+order by A.au_id</string>
+		<string>#CHALLENGE 2 
+
+select A.au_id as 'AUTHOR ID', A.au_fname,A.au_lname,T.title as 'NB of titles',P.pub_name
+from authors A
+inner join titleauthor TA
+on A.au_id=TA.au_id
+inner join titles T
+on TA.title_id=T.title_id
+inner join publishers P
+on T.pub_id=P.pub_id
+group by A.au_id</string>
+		<string>#CHALLENGE 2 
+
+select A.au_id as 'AUTHOR ID', A.au_fname,A.au_lname,count(T.title) as 'NB of titles',P.pub_name
+from authors A
+inner join titleauthor TA
+on A.au_id=TA.au_id
+inner join titles T
+on TA.title_id=T.title_id
+inner join publishers P
+on T.pub_id=P.pub_id
+group by A.au_id</string>
+		<string>#CHALLENGE 2 
+
+select A.au_id as 'AUTHOR ID', A.au_fname,A.au_lname,count(T.title) as 'NB of titles',P.pub_name
+from authors A
+inner join titleauthor TA
+on A.au_id=TA.au_id
+inner join titles T
+on TA.title_id=T.title_id
+inner join publishers P
+on T.pub_id=P.pub_id</string>
+	</array>
+	<key>rdbms_type</key>
+	<string>mysql</string>
+	<key>rdbms_version</key>
+	<string>8.0.21</string>
+	<key>version</key>
+	<integer>1</integer>
+</dict>
+</plist>

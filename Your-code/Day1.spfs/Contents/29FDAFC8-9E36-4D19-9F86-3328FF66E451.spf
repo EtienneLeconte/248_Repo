@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ContentFilters</key>
+	<dict/>
+	<key>auto_connect</key>
+	<true/>
+	<key>data</key>
+	<dict>
+		<key>connection</key>
+		<dict>
+			<key>database</key>
+			<string>publications</string>
+			<key>host</key>
+			<string>127.0.0.1</string>
+			<key>kcid</key>
+			<string>5430701237833564815</string>
+			<key>name</key>
+			<string>localhost</string>
+			<key>rdbms_type</key>
+			<string>mysql</string>
+			<key>sslCACertFileLocation</key>
+			<string></string>
+			<key>sslCACertFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslCertificateFileLocation</key>
+			<string></string>
+			<key>sslCertificateFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslKeyFileLocation</key>
+			<string></string>
+			<key>sslKeyFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>type</key>
+			<string>SPTCPIPConnection</string>
+			<key>useSSL</key>
+			<integer>0</integer>
+			<key>user</key>
+			<string>root</string>
+		</dict>
+		<key>session</key>
+		<dict>
+			<key>connectionEncoding</key>
+			<string>utf8</string>
+			<key>contentFilterV2</key>
+			<dict>
+				<key>children</key>
+				<array/>
+				<key>filterClass</key>
+				<string>groupNode</string>
+				<key>isConjunction</key>
+				<true/>
+			</dict>
+			<key>contentPageNumber</key>
+			<integer>1</integer>
+			<key>contentSelection</key>
+			<data>
+			YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0
+			b3BYJG9iamVjdHMSAAGGoF8QD05TS2V5ZWRBcmNoaXZlctEICVRk
+			YXRhgAGtCwwZGhscHSEoLDA0OFUkbnVsbNMNDg8QFBhXTlMua2V5
+			c1pOUy5vYmplY3RzViRjbGFzc6MREhOAAoADgASjFRYXgAWABoAI
+			gAxUdHlwZVRyb3dzVGtleXNfECZTZWxlY3Rpb25EZXRhaWxUeXBl
+			UHJpbWFyeUtleWVkRGV0YWlsc9MNDg8eHyCgoIAH0iIjJCVaJGNs
+			YXNzbmFtZVgkY2xhc3Nlc18QE05TTXV0YWJsZURpY3Rpb25hcnmj
+			JCYnXE5TRGljdGlvbmFyeVhOU09iamVjdNIODykroSqACYAL0g8t
+			Li9ZTlMuc3RyaW5ngApWcHViX2lk0iIjMTJfEA9OU011dGFibGVT
+			dHJpbmejMTMnWE5TU3RyaW5n0iIjNTZeTlNNdXRhYmxlQXJyYXmj
+			NTcnV05TQXJyYXnSIiMmOaImJwAIABEAGgAkACkAMgA3AEkATABR
+			AFMAYQBnAG4AdgCBAIgAjACOAJAAkgCWAJgAmgCcAJ4AowCoAK0A
+			1gDdAN4A3wDhAOYA8QD6ARABFAEhASoBLwExATMBNQE6AUQBRgFN
+			AVIBZAFoAXEBdgGFAYkBkQGWAAAAAAAAAgEAAAAAAAAAOgAAAAAA
+			AAAAAAAAAAAAAZk=
+			</data>
+			<key>contentSortColIsAsc</key>
+			<true/>
+			<key>contentViewport</key>
+			<string>{{0, 0}, {1227, 791}}</string>
+			<key>isToolbarVisible</key>
+			<true/>
+			<key>queries</key>
+			<string>CREATE DATABASE publications;
+use publications;
+SELECT * From titles;
+select title,price
+from titles
+where price is not null;
+SELECT * From titles;
+select distinct type from titles;
+
+select * 
+from titles
+group by type
+order by price desc;
+
+select count(title), type, avg(price), max(price), min(price)
+from titles
+group by type
+order by count(title) desc;
+
+select * 
+from jobs
+order by min_lvl desc
+limit 10;
+
+select distinct au_lname, au_fname
+from authors;
+
+select *
+from authors
+where (state='CA' and contract!=1) or state='KS';
+
+select *
+from authors
+where au_fname like '%star';
+
+select *
+from authors
+where address from regexp '\d+ [A-z]+' ;
+
+select * 
+from publishers pubs
+inner join titles t
+on pubs.pub_id=t.pub_id;
+
+select pubs.pub_name, count(t.title_id) as 'Nb of titles' 
+from publishers pubs
+left join titles t
+on pubs.pub_id=t.pub_id
+group by pubs.pub_id;
+
+select pubs.pub_name, count(t.title_id) as 'Nb of titles' 
+from publishers pubs
+right join titles t
+on pubs.pub_id=t.pub_id
+group by pubs.pub_id;</string>
+			<key>table</key>
+			<string>pub_info</string>
+			<key>view</key>
+			<string>SP_VIEW_CUSTOMQUERY</string>
+			<key>windowVerticalDividerPosition</key>
+			<real>214</real>
+		</dict>
+	</dict>
+	<key>encrypted</key>
+	<false/>
+	<key>format</key>
+	<string>connection</string>
+	<key>queryFavorites</key>
+	<array/>
+	<key>queryHistory</key>
+	<array>
+		<string>select pubs.pub_name, count(t.title_id) as 'Nb of titles' 
+from publishers pubs
+left join titles t
+on pubs.pub_id=t.pub_id
+group by pubs.pub_id</string>
+		<string>select * 
+from publishers pubs
+inner join titles t
+on pubs.pub_id=t.pub_id</string>
+		<string>select count(title), type, avg(price), max(price), min(price)
+from titles
+group by type
+order by count(title) desc</string>
+		<string>select * 
+from titles
+group by type
+order by price desc</string>
+		<string>group by type</string>
+		<string>select count(title), type, avg(price), max(price), min(price)
+from titles
+
+order by count(title) desc</string>
+		<string>select pubs.pub_name, count(t.title_id) as 'Nb of titles' 
+from publishers pubs
+right join titles t
+on pubs.pub_id=t.pub_id
+group by pubs.pub_id</string>
+		<string>select pubs.pub_name, count(t.titles) as 'Nb of titles' 
+from publishers pubs
+left join titles t
+on pubs.pub_id=t.pub_id
+group by pubs.pub_id</string>
+		<string>select pubs.pub_name, count(*) as 'Nb of titles' 
+from publishers pubs
+left join titles t
+on pubs.pub_id=t.pub_id
+group by pubs.pub_id</string>
+		<string>select pubs.pub_name, count(*) as 'Nb of titles' 
+from publishers pubs
+inner join titles t
+on pubs.pub_id=t.pub_id
+group by pubs.pub_id</string>
+		<string>select * 
+from publishers pubs</string>
+		<string>select * 
+from publishers.pubs</string>
+		<string>select *
+from authors A
+left join titles B
+on A.key=B.key</string>
+		<string>select *
+from authors A
+left join titles B
+on a.key=b.key</string>
+		<string>select *
+from authors
+where address from regexp '\d+ [A-z]+'</string>
+		<string>select *
+from authors
+where address from regexp '(\d+ [A-z]+)'</string>
+		<string>select *
+from authors
+where address form regexp '(\d+ [A-z]+)'</string>
+		<string>select *
+from authors</string>
+		<string>select *
+from authors
+where au_fname like '%star'</string>
+		<string>select *
+from authors
+where (state='CA' and contract!=1) or state='KS'</string>
+	</array>
+	<key>rdbms_type</key>
+	<string>mysql</string>
+	<key>rdbms_version</key>
+	<string>8.0.21</string>
+	<key>version</key>
+	<integer>1</integer>
+</dict>
+</plist>
