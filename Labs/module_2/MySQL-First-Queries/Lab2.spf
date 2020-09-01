@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ContentFilters</key>
+	<dict/>
+	<key>auto_connect</key>
+	<true/>
+	<key>data</key>
+	<dict>
+		<key>connection</key>
+		<dict>
+			<key>database</key>
+			<string>ironhack_par</string>
+			<key>host</key>
+			<string>db4free.net</string>
+			<key>kcid</key>
+			<string>3932530209116872599</string>
+			<key>name</key>
+			<string>db4free</string>
+			<key>rdbms_type</key>
+			<string>mysql</string>
+			<key>sslCACertFileLocation</key>
+			<string></string>
+			<key>sslCACertFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslCertificateFileLocation</key>
+			<string></string>
+			<key>sslCertificateFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslKeyFileLocation</key>
+			<string></string>
+			<key>sslKeyFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>type</key>
+			<string>SPTCPIPConnection</string>
+			<key>useSSL</key>
+			<integer>0</integer>
+			<key>user</key>
+			<string>bergmeer</string>
+		</dict>
+		<key>session</key>
+		<dict>
+			<key>connectionEncoding</key>
+			<string>utf8mb4</string>
+			<key>contentFilterV2</key>
+			<dict>
+				<key>children</key>
+				<array/>
+				<key>filterClass</key>
+				<string>groupNode</string>
+				<key>isConjunction</key>
+				<true/>
+			</dict>
+			<key>contentPageNumber</key>
+			<integer>1</integer>
+			<key>contentSelection</key>
+			<data>
+			YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0
+			b3BYJG9iamVjdHMSAAGGoF8QD05TS2V5ZWRBcmNoaXZlctEICVRk
+			YXRhgAGoCwwXGBkaHiVVJG51bGzTDQ4PEBMWV05TLmtleXNaTlMu
+			b2JqZWN0c1YkY2xhc3OiERKAAoADohQVgASABYAHVHR5cGVUcm93
+			c18QHVNlbGVjdGlvbkRldGFpbFR5cGVOU0luZGV4U2V00hsPHB1c
+			TlNSYW5nZUNvdW50EACABtIfICEiWiRjbGFzc25hbWVYJGNsYXNz
+			ZXNaTlNJbmRleFNldKIjJFpOU0luZGV4U2V0WE5TT2JqZWN00h8g
+			JidcTlNEaWN0aW9uYXJ5oiYkAAgAEQAaACQAKQAyADcASQBMAFEA
+			UwBcAGIAaQBxAHwAgwCGAIgAigCNAI8AkQCTAJgAnQC9AMIAzwDR
+			ANMA2ADjAOwA9wD6AQUBDgETASAAAAAAAAACAQAAAAAAAAAoAAAA
+			AAAAAAAAAAAAAAABIw==
+			</data>
+			<key>contentSortCol</key>
+			<string>prime_genre</string>
+			<key>contentSortColIsAsc</key>
+			<false/>
+			<key>contentViewport</key>
+			<string>{{157, 0}, {1212, 776}}</string>
+			<key>isToolbarVisible</key>
+			<true/>
+			<key>queries</key>
+			<string># 1 
+select prime_genre as GENRE
+from Appstore;
+
+# 2 
+select prime_genre as GENRE,count(rating_count_tot) as RATINGS
+from Appstore
+where rating_count_tot!=0 and rating_count_tot is not null
+group by GENRE
+order by RATINGS desc;
+
+# 3 and # 4
+select prime_genre as GENRE,count(id) as NBAPPS
+from Appstore
+group by GENRE
+order by NBAPPS desc;
+
+# 5
+select *
+from Appstore
+order by rating_count_tot desc
+limit 10;
+
+# 6
+select *
+from Appstore
+order by user_rating desc
+limit 10;
+
+# 10
+select track_name as NAME,rating_count_tot*user_rating as GRADE
+from Appstore
+order by GRADE desc
+limit 3;
+
+# 11
+select sum(rating_count_tot*user_rating) as GRADE
+from Appstore
+where price=0;
+
+select sum(rating_count_tot*user_rating) as GRADE
+from Appstore
+where price!=0;
+</string>
+			<key>table</key>
+			<string>Appstore</string>
+			<key>view</key>
+			<string>SP_VIEW_CUSTOMQUERY</string>
+			<key>windowVerticalDividerPosition</key>
+			<real>214</real>
+		</dict>
+	</dict>
+	<key>encrypted</key>
+	<false/>
+	<key>format</key>
+	<string>connection</string>
+	<key>queryFavorites</key>
+	<array/>
+	<key>queryHistory</key>
+	<array>
+		<string># 10
+select track_name as NAME,rating_count_tot*user_rating as GRADE
+from Appstore
+order by GRADE desc
+limit 3</string>
+		<string># 6
+select *
+from Appstore
+order by user_rating desc
+limit 10</string>
+		<string># 5
+select *
+from Appstore
+order by rating_count_tot desc
+limit 10</string>
+		<string># 5
+select track_name as NAME,rating_count_tot as RATINGS
+from Appstore
+order by RATINGS desc
+limit 10</string>
+		<string># 6
+select track_name as NAME,user_rating as USERRATINGS 
+from Appstore
+order by USERRATINGS desc
+limit 10</string>
+		<string># 2 
+select prime_genre as GENRE,count(rating_count_tot) as RATINGS
+from Appstore
+where rating_count_tot!=0 and rating_count_tot is not null
+group by GENRE
+order by RATINGS desc</string>
+		<string># 2 
+select prime_genre as GENRE,count(rating_count_tot) as RATINGS
+from Appstore
+where RATINGS!=0 and RATINGS is not null
+group by GENRE
+order by RATINGS desc</string>
+		<string># 2 
+select prime_genre as GENRE,sum(rating_count_tot) as RATINGS
+from Appstore
+group by GENRE
+order by RATINGS desc</string>
+		<string>select sum(rating_count_tot*user_rating) as GRADE
+from Appstore
+where price!=0</string>
+		<string># 11
+select sum(rating_count_tot*user_rating) as GRADE
+from Appstore
+where price=0</string>
+		<string>select track_name as NAME,rating_count_tot*user_rating as GRADE
+from Appstore
+where price!=0
+order by GRADE desc
+limit 5</string>
+		<string># 11
+select track_name as NAME,rating_count_tot*user_rating as GRADE
+from Appstore
+where price=0
+order by GRADE desc
+limit 5</string>
+		<string># 10
+select track_name as NAME,rating_count_tot*user_rating as GRADE
+from Appstore
+order by GRADE desc
+limit 10</string>
+		<string># 10
+select track_name as NAME,rating_count_tot as RATINGS,user_rating as USERRATINGS,RATINGS*USERRATINGS as X
+from Appstore
+order by X desc
+limit 10</string>
+		<string># 5
+select track_name as NAME,rating_count_tot as RATINGS
+from Appstore
+order by RATINGS desc</string>
+		<string># 3
+select prime_genre as GENRE,count(id) as NBAPPS
+from Appstore
+group by GENRE
+order by NBAPPS desc</string>
+		<string># 3
+select prime_genre as GENRE,count(id) as NB OF APPS
+from Appstore
+group by GENRE
+order by NB OF APPS desc</string>
+		<string># 2 
+select prime_genre as GENRE,sum(rating_count_tot) as RATINGS
+from Appstore
+group by GENRE</string>
+		<string># 2 
+select prime_genre as GENRE,rating_count_tot as RATINGS
+from Appstore
+group by GENRE</string>
+		<string>select prime_genre as GENRE
+from Appstore
+group by GENRE</string>
+	</array>
+	<key>rdbms_type</key>
+	<string>mysql</string>
+	<key>rdbms_version</key>
+	<string>8.0.21</string>
+	<key>version</key>
+	<integer>1</integer>
+</dict>
+</plist>
