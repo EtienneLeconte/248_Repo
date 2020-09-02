@@ -86,9 +86,25 @@ limit 5;
 
 # CHALLENGE 2 
 
+create temporary table if not exists finance.permsipoorder
+select account_id,count(account_id) as COUNT
+from finance.order
+where COUNT&gt;1
+group by account_id; 
+
+select account_id,count(account_id) as count
+from finance.order
+group by account_id
+where (finance.order.count&gt;1);
+
+select account_id,amount
+from trans
+where k_symbol='SIPO'
+group by amount,account_id
+order by account_id;
 </string>
 			<key>table</key>
-			<string>account</string>
+			<string>order</string>
 			<key>view</key>
 			<string>SP_VIEW_CUSTOMQUERY</string>
 			<key>windowVerticalDividerPosition</key>
@@ -103,92 +119,80 @@ limit 5;
 	<array/>
 	<key>queryHistory</key>
 	<array>
-		<string># CHALLENGE 1
-
-select A1 as district_id,count(account_id) as NBACCOUNTS
-from district
-inner join account on district.A1=account.district_id
-group by district_id
-order by NBACCOUNTS desc
-limit 5</string>
-		<string>select A1 as district_id,count(account_id) as NBACCOUNTS
-from district
-inner join account on district.A1=account.district_id
-group by district_id
-order by district_id</string>
-		<string>select A1 as district_id,count(account_id) as NBACCOUNTS
-from district
-inner join account on district.A1=account.district_id
-group by district_id
-order by district_id desc</string>
-		<string>select A1 as district_id,count(account_id) as NBACCOUNTS
-from district
-inner join account on district.A1=account.district_id
-group by district_id</string>
-		<string>select A1 as district_id,count(account_id) as NBACCOUNTS
-from district
-inner join account on district.district_id=account.district_id
-group by district_id</string>
-		<string>select A1 as district_id,count(account_id) as NBACCOUNTS
-from district
-inner join account on district.district_id=account.district_id</string>
-		<string>use finance</string>
-		<string>create database finance</string>
-		<string>create finance</string>
-		<string># 10
-select track_name as NAME,rating_count_tot*user_rating as GRADE
-from Appstore
-order by GRADE desc
-limit 3</string>
-		<string># 6
-select *
-from Appstore
-order by user_rating desc
-limit 10</string>
-		<string># 5
-select *
-from Appstore
-order by rating_count_tot desc
-limit 10</string>
-		<string># 5
-select track_name as NAME,rating_count_tot as RATINGS
-from Appstore
-order by RATINGS desc
-limit 10</string>
-		<string># 6
-select track_name as NAME,user_rating as USERRATINGS 
-from Appstore
-order by USERRATINGS desc
-limit 10</string>
-		<string># 2 
-select prime_genre as GENRE,count(rating_count_tot) as RATINGS
-from Appstore
-where rating_count_tot!=0 and rating_count_tot is not null
-group by GENRE
-order by RATINGS desc</string>
-		<string># 2 
-select prime_genre as GENRE,count(rating_count_tot) as RATINGS
-from Appstore
-where RATINGS!=0 and RATINGS is not null
-group by GENRE
-order by RATINGS desc</string>
-		<string># 2 
-select prime_genre as GENRE,sum(rating_count_tot) as RATINGS
-from Appstore
-group by GENRE
-order by RATINGS desc</string>
-		<string>select sum(rating_count_tot*user_rating) as GRADE
-from Appstore
-where price!=0</string>
-		<string># 11
-select sum(rating_count_tot*user_rating) as GRADE
-from Appstore
-where price=0</string>
-		<string>select track_name as NAME,rating_count_tot*user_rating as GRADE
-from Appstore
-where price!=0
-order by GRADE desc
-limit 5</string>
+		<string>select account_id,amount
+from trans
+where k_symbol='SIPO'
+group by amount,account_id
+order by account_id</string>
+		<string>account_id,amount</string>
+		<string>select *
+from trans
+where k_symbol='SIPO'
+group by amount,account_id
+order by account_id</string>
+		<string>select account_id,amount
+from trans
+where k_symbol='SIPO'
+group by amount,account_id</string>
+		<string>select account_id,amount
+from trans
+where k_symbol='SIPO'
+group by amount</string>
+		<string>select account_id,amount
+from trans
+where k_symbol='SIPO'
+group by amount
+order by account_id</string>
+		<string>select account_id,distinct(amount)
+from trans
+where k_symbol='SIPO'
+order by account_id</string>
+		<string>select distinct(amount)
+from trans
+where k_symbol='SIPO'
+order by account_id</string>
+		<string>select *
+from trans
+where k_symbol='SIPO'
+order by account_id</string>
+		<string>select *
+from finance.order
+where k_symbol='SIPO'
+order by account_id</string>
+		<string>select account_id,count(account_id) as count
+from finance.order
+group by account_id
+where (finance.order.count&gt;1)</string>
+		<string>select account_id,count(account_id) as count
+from finance.order
+group by account_id
+where finance.order.count&gt;1</string>
+		<string>select account_id,count(account_id) as count
+from finance.order
+group by account_id
+where order.count&gt;1</string>
+		<string>select account_id,count(account_id) as count
+from finance.order
+group by account_id
+where count&gt;1</string>
+		<string>select account_id,count(account_id) as count
+from finance.order
+group by account_id</string>
+		<string>select account_id,amount,count(account_id) as count
+from finance.order
+group by account_id,amount</string>
+		<string>select account_id,amount,count(account_id)
+from finance.order
+group by account_id,amount</string>
+		<string>select account_id,amount,count(account_id)
+from finance.order
+group by account_id</string>
+		<string>select account_id,count(account_id)
+from finance.order
+group by account_id</string>
+		<string>select *,count(account_id)
+from finance.order
+group by account_id</string>
 	</array>
 	<key>rdbms_type</key>
 	<string>mysql</string>
