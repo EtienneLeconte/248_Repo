@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ContentFilters</key>
+	<dict/>
+	<key>auto_connect</key>
+	<true/>
+	<key>data</key>
+	<dict>
+		<key>connection</key>
+		<dict>
+			<key>database</key>
+			<string>finance</string>
+			<key>host</key>
+			<string>127.0.0.1</string>
+			<key>kcid</key>
+			<string>5430701237833564815</string>
+			<key>name</key>
+			<string>localhost</string>
+			<key>rdbms_type</key>
+			<string>mysql</string>
+			<key>sslCACertFileLocation</key>
+			<string></string>
+			<key>sslCACertFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslCertificateFileLocation</key>
+			<string></string>
+			<key>sslCertificateFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslKeyFileLocation</key>
+			<string></string>
+			<key>sslKeyFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>type</key>
+			<string>SPTCPIPConnection</string>
+			<key>useSSL</key>
+			<integer>0</integer>
+			<key>user</key>
+			<string>root</string>
+		</dict>
+		<key>session</key>
+		<dict>
+			<key>connectionEncoding</key>
+			<string>utf8mb4</string>
+			<key>contentFilterV2</key>
+			<dict>
+				<key>children</key>
+				<array/>
+				<key>filterClass</key>
+				<string>groupNode</string>
+				<key>isConjunction</key>
+				<true/>
+			</dict>
+			<key>contentPageNumber</key>
+			<integer>1</integer>
+			<key>contentSelection</key>
+			<data>
+			YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0
+			b3BYJG9iamVjdHMSAAGGoF8QD05TS2V5ZWRBcmNoaXZlctEICVRk
+			YXRhgAGoCwwXGBkaHiVVJG51bGzTDQ4PEBMWV05TLmtleXNaTlMu
+			b2JqZWN0c1YkY2xhc3OiERKAAoADohQVgASABYAHVHR5cGVUcm93
+			c18QHVNlbGVjdGlvbkRldGFpbFR5cGVOU0luZGV4U2V00hsPHB1c
+			TlNSYW5nZUNvdW50EACABtIfICEiWiRjbGFzc25hbWVYJGNsYXNz
+			ZXNaTlNJbmRleFNldKIjJFpOU0luZGV4U2V0WE5TT2JqZWN00h8g
+			JidcTlNEaWN0aW9uYXJ5oiYkAAgAEQAaACQAKQAyADcASQBMAFEA
+			UwBcAGIAaQBxAHwAgwCGAIgAigCNAI8AkQCTAJgAnQC9AMIAzwDR
+			ANMA2ADjAOwA9wD6AQUBDgETASAAAAAAAAACAQAAAAAAAAAoAAAA
+			AAAAAAAAAAAAAAABIw==
+			</data>
+			<key>contentSortColIsAsc</key>
+			<true/>
+			<key>contentViewport</key>
+			<string>{{0, 0}, {1227, 767}}</string>
+			<key>isToolbarVisible</key>
+			<true/>
+			<key>queries</key>
+			<string># CHALLENGE 1
+
+select A1 as district_id,count(account_id) as NBACCOUNTS
+from district
+inner join account on district.A1=account.district_id
+group by district_id
+order by NBACCOUNTS desc
+limit 5;
+
+# Prof 
+
+select district_id, count(distinct account_id) as ac_freq
+from account
+group by district_id
+order by ac_freq DESC
+limit 5;
+
+# CHALLENGE 2 
+
+create temporary table if not exists step1
+select account_id, amount
+from trans
+where k_symbol='SIPO'
+group by account_id,amount
+order by account_id;
+
+create temporary table if not exists step2
+select account_id,count(account_id)
+from step1
+group by account_id
+having count(account_id) &gt; 1;
+
+select t.account_id
+from trans t 
+inner join step2 s
+on t.account_id=s.account_id
+where k_symbol='SIPO'
+group by t.account_id
+order by t.account_id;
+
+# Prof
+
+select account_id,count(distinct amount) as diff,group_concat(distinct bank_to),group_concat(distinct amount)
+from finance.order
+where k_symbol='SIPO'
+group by account_id
+having diff&gt;1;
+
+# CHALLENGE 3 
+
+create temporary table if not exists craco
+select L.account_id, L.payments as amount,A.district_id,D.A3
+from loan L
+inner join account A
+on L.account_id=A.account_id
+inner join district D
+on A.district_id=D.A1
+order by amount desc;
+
+select * from craco;
+
+# Prof 
+
+select * 
+from finance.order o 
+where k_symbol="UVER"
+
+
+# CHALLENGE 4
+
+select A3,sum(amount) as SUM
+from craco
+group by A3
+order by SUM desc;
+
+# CHALLENGE 5 
+
+# see on Stack overflow or Prof files 
+
+</string>
+			<key>table</key>
+			<string>district</string>
+			<key>view</key>
+			<string>SP_VIEW_CUSTOMQUERY</string>
+			<key>windowVerticalDividerPosition</key>
+			<real>214</real>
+		</dict>
+	</dict>
+	<key>encrypted</key>
+	<false/>
+	<key>format</key>
+	<string>connection</string>
+	<key>queryFavorites</key>
+	<array/>
+	<key>queryHistory</key>
+	<array>
+		<string>select * from craco</string>
+		<string># CHALLENGE 3 
+
+create temporary table if not exists craco
+select L.account_id, L.payments as amount,A.district_id,D.A3
+from loan L
+inner join account A
+on L.account_id=A.account_id
+inner join district D
+on A.district_id=D.A1
+order by amount desc</string>
+		<string># Prof
+
+select account_id,count(distinct amount) as diff,group_concat(distinct bank_to),group_concat(distinct amount)
+from finance.order
+where k_symbol='SIPO'
+group by account_id
+having diff&gt;1</string>
+		<string># Prof
+
+select account_id,count(distinct amount) as diff,group_concat(distinct bank_to),group_concat(distinct amount)
+from finance.order
+where k_symbol='SIPO'
+group by account_id
+having diff&gt;1
+
+# CHALLENGE 3 
+
+create temporary table if not exists craco
+select L.account_id, L.payments as amount,A.district_id,D.A3
+from loan L
+inner join account A
+on L.account_id=A.account_id
+inner join district D
+on A.district_id=D.A1
+order by amount desc</string>
+		<string>select t.account_id
+from trans t 
+inner join step2 s
+on t.account_id=s.account_id
+where k_symbol='SIPO'
+group by t.account_id
+order by t.account_id</string>
+		<string>select district_id, count(distinct account_id) as ac_freq
+from account
+group by district_id
+order by ac_freq DESC
+limit 5</string>
+		<string># CHALLENGE 1
+
+select A1 as district_id,count(account_id) as NBACCOUNTS
+from district
+inner join account on district.A1=account.district_id
+group by district_id
+order by NBACCOUNTS desc
+limit 5</string>
+		<string>select t.account_id,amount
+from trans t 
+inner join step2 s
+on t.account_id=s.account_id
+where k_symbol='SIPO'
+group by t.account_id,
+order by t.account_id</string>
+		<string>select t.account_id,amount
+from trans t 
+inner join step2 s
+on t.account_id=s.account_id
+where k_symbol='SIPO'
+group by account_id,
+order by t.account_id</string>
+		<string>select t.account_id,date,amount
+from trans t 
+inner join step2 s
+on t.account_id=s.account_id
+where k_symbol='SIPO'
+group by account_id
+order by t.account_id</string>
+		<string>select t.account_id,date,amount
+from trans t 
+inner join step2 s
+on t.account_id=s.account_id
+where k_symbol='SIPO'
+order by t.account_id</string>
+		<string>create temporary table if not exists step2
+select account_id,count(account_id)
+from step1
+group by account_id
+having count(account_id) &gt; 1</string>
+		<string># CHALLENGE 2 
+
+create temporary table if not exists step1
+select account_id, amount
+from trans
+where k_symbol='SIPO'
+group by account_id,amount
+order by account_id</string>
+		<string>select A3,sum(amount) as SUM
+from craco
+group by A3
+order by SUM desc</string>
+		<string>select A3,sum(amount)
+from craco
+group by A3</string>
+		<string># CHALLENGE 3 
+
+select L.account_id, L.payments as amount,A.district_id,D.A3
+from loan L
+inner join account A
+on L.account_id=A.account_id
+inner join district D
+on A.district_id=D.A1
+order by amount desc</string>
+		<string># CHALLENGE 3 
+
+select L.account_id, L.payments as amount,A.district_id,D.district_name
+from loan L
+inner join account A
+on L.account_id=A.account_id
+inner join district D
+on A.district_id=D.district_id
+order by amount desc</string>
+		<string># CHALLENGE 3 
+
+select L.account_id, L.payments as amount,A.district_id 
+from loan L
+inner join account A
+on L.account_id=A.account_id
+order by amount desc</string>
+		<string># CHALLENGE 3 
+
+select L.account_id, L.payments as amount,A.district_id 
+from loan L
+inner join account A
+on L.account_id=A.account_id
+order by amount</string>
+		<string># CHALLENGE 3 
+
+select L.account_id, L.payments as amount,A.district_id 
+from loan L
+inner join account A
+on L.account_id=A.account_id</string>
+	</array>
+	<key>rdbms_type</key>
+	<string>mysql</string>
+	<key>rdbms_version</key>
+	<string>8.0.21</string>
+	<key>version</key>
+	<integer>1</integer>
+</dict>
+</plist>
